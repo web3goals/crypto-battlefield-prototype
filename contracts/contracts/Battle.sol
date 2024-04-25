@@ -11,24 +11,30 @@ contract Battle is ERC721 {
         bytes32 userOneSquadHash;
         address userTwo;
         uint[] userTwoSquad;
+        uint result;
     }
 
-    ISquadVerifier public squadVerifier;
+    IVerifier public squadVerifier;
+    IVerifier public battleVerifier;
     uint public nextTokenId;
     mapping(uint tokenId => Params params) public params;
 
-    constructor(address _squadVerifier) ERC721("Battle", "BTL") {
-        squadVerifier = ISquadVerifier(_squadVerifier);
+    constructor(
+        address _squadVerifier,
+        address _battleVerifier
+    ) ERC721("Battle", "BTL") {
+        squadVerifier = IVerifier(_squadVerifier);
+        battleVerifier = IVerifier(_battleVerifier);
     }
 
     function start(bytes memory _squadProof, bytes32 _squadHash) public {
-        // Set up verifier's public input from the caller's input
+        // Set up public input to verify squad
         bytes32[] memory publicInputs = new bytes32[](1);
         publicInputs[0] = _squadHash;
-        // Verify integrity of squad configuration
+        // Check if the squad proof is valid
         require(
             squadVerifier.verify(_squadProof, publicInputs),
-            "Invalid squad configuration"
+            "Failed to verify the squad"
         );
         // Mint token
         uint256 tokenId = nextTokenId++;
@@ -57,8 +63,25 @@ contract Battle is ERC721 {
         params[_tokenId].userTwoSquad = _squad;
     }
 
-    // TODO:
-    function end(uint _tokenId, uint _result, bytes calldata _proof) public {}
+    function end(
+        uint _tokenId,
+        uint _battleResult,
+        bytes calldata _battleResultProof
+    ) public {
+        // Set up public input to verify battle result
+        bytes32[] memory publicInputs = new bytes32[](5);
+        publicInputs[0] = params[_tokenId].userOneSquadHash;
+        publicInputs[1] = bytes32(params[_tokenId].userTwoSquad[0]);
+        publicInputs[2] = bytes32(params[_tokenId].userTwoSquad[1]);
+        publicInputs[3] = bytes32(params[_tokenId].userTwoSquad[2]);
+        publicInputs[4] = bytes32(_battleResult);
+        // Check if the battle result proof is valid
+        if (!battleVerifier.verify(_battleResultProof, publicInputs)) {
+            revert("Failed to verify the battle result");
+        }
+        // Update params
+        params[_tokenId].result = _battleResult;
+    }
 
     function getParams(uint _tokenId) public view returns (Params memory) {
         return params[_tokenId];
