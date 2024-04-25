@@ -5,9 +5,9 @@ use dep::std;
 //
 fn main(squad_hash: pub Field, squad: [Field; 3]) {
     let squad_size = squad[0] + squad[1] + squad[2];
-    assert(squad_size == 10 as Field, "Squad size should be equal to 10!");
+    assert(squad_size == 10 as Field, "Squad size should be equal to 10");
     let squad_computed_hash = std::hash::pedersen_hash(squad);
-    assert(squad_hash == squad_computed_hash, "Squad hash integrity check failed!");
+    assert(squad_hash == squad_computed_hash, "Squad hash integrity check failed");
 }
 
 #[test]
