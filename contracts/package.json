@@ -4,5 +4,10 @@
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
     "hardhat": "^2.22.3"
+  },
+  "dependencies": {
+    "@noir-lang/backend_barretenberg": "^0.27.0",
+    "@noir-lang/noir_js": "^0.27.0",
+    "@openzeppelin/contracts": "^5.0.2"
   }
 }
