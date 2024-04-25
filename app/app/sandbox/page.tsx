@@ -3,7 +3,7 @@
 import { BarretenbergBackend } from "@noir-lang/backend_barretenberg";
 import { Noir } from "@noir-lang/noir_js";
 
-import circuit from "@/cirtuit/circuit.json";
+import circuit from "@/circuit/circuit.json";
 
 export default function SandboxPage() {
   async function test() {
