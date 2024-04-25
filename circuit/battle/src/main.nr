@@ -20,8 +20,8 @@ fn main(user_one_squad_hash: pub Field, user_one_squad: [Field; 3], user_two_squ
     user_one_health = user_one_health - user_two_attack;
     user_two_health = user_two_health - user_one_attack;
 
-    // Calculate battle result (0 draw, 1 - user one won, 2 - user two won)
-    let mut computed_battle_result = 0;
+    // Calculate battle result (1 - user one won, 2 - user two won, 3 - draw)
+    let mut computed_battle_result = 3;
     if (user_one_health > user_two_health) {
         computed_battle_result = 1;
     } 
@@ -36,7 +36,7 @@ fn test_draw() {
     let user_one_squad = [4, 1, 5];
     let user_one_squad_hash = std::hash::pedersen_hash(user_one_squad);
     let user_two_squad = [4, 1, 5];
-    let battle_result = 0;
+    let battle_result = 3;
     main(user_one_squad_hash, user_one_squad, user_two_squad, battle_result);
 }
 
