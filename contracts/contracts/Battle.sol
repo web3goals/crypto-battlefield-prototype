@@ -7,13 +7,15 @@ import "./IVerifier.sol";
 contract Battle is ERC721 {
     uint public constant MAX_SQUAD_SIZE = 10;
 
-    // TODO: Add started, joined, ended
     // TODO: Add prices used for boosters
     struct Params {
         bytes32 userOneSquadHash;
         address userTwo;
         uint[] userTwoSquad;
         uint result;
+        uint started;
+        uint joined;
+        uint ended;
     }
 
     IVerifier public squadVerifier;
@@ -44,10 +46,10 @@ contract Battle is ERC721 {
         // Set params
         Params memory prms;
         prms.userOneSquadHash = _squadHash;
+        prms.started = block.timestamp;
         params[tokenId] = prms;
     }
 
-    // TODO: Check that caller is not user one
     function join(uint _tokenId, uint[] memory _squad) public {
         // Check data
         _requireOwned(_tokenId);
@@ -57,12 +59,17 @@ contract Battle is ERC721 {
             "Squad size incorrect"
         );
         require(
+            _requireOwned(_tokenId) != msg.sender,
+            "Owner cannot be user two"
+        );
+        require(
             params[_tokenId].userTwo == address(0),
-            "The battle already has the second user"
+            "The battle already has user two"
         );
         // Update params
         params[_tokenId].userTwo = msg.sender;
         params[_tokenId].userTwoSquad = _squad;
+        params[_tokenId].joined = block.timestamp;
     }
 
     function end(
@@ -86,6 +93,7 @@ contract Battle is ERC721 {
         }
         // Update params
         params[_tokenId].result = _battleResult;
+        params[_tokenId].ended = block.timestamp;
     }
 
     function getParams(uint _tokenId) public view returns (Params memory) {
