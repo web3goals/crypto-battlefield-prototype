@@ -109,7 +109,7 @@ function UnitCardHeader(props: {
       {/* Image */}
       <div>
         <Avatar className="size-36 rounded-lg">
-          <AvatarImage src={props.image} alt="Icon" />
+          <AvatarImage src={props.image} alt="Unit Image" />
         </Avatar>
       </div>
       {/* Content */}
@@ -117,15 +117,15 @@ function UnitCardHeader(props: {
         <p className="text-xl font-bold">{props.title}</p>
         <div className="flex flex-col md:flex-row md:gap-3">
           <p className="min-w-[60px] text-sm text-muted-foreground">Health:</p>
-          <p className="text-sm break-all">{props.health}</p>
+          <p className="text-sm">{props.health}</p>
         </div>
         <div className="flex flex-col md:flex-row md:gap-3">
           <p className="min-w-[60px] text-sm text-muted-foreground">Attack:</p>
-          <p className="text-sm break-all">{props.attack}</p>
+          <p className="text-sm">{props.attack}</p>
         </div>
         <div className="flex flex-col md:flex-row md:gap-3">
           <p className="min-w-[60px] text-sm text-muted-foreground">Booster:</p>
-          <p className="text-sm break-all">{props.booster}</p>
+          <p className="text-sm">{props.booster}</p>
         </div>
       </div>
     </div>
