@@ -7,6 +7,7 @@
     "hardhat": "^2.22.3"
   },
   "dependencies": {
+    "@chainlink/contracts": "^1.1.0",
     "@noir-lang/backend_barretenberg": "^0.27.0",
     "@noir-lang/noir_js": "^0.27.0",
     "@openzeppelin/contracts": "^5.0.2"

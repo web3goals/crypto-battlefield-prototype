@@ -62,7 +62,10 @@ async function initFixture() {
   const battleContractFactory = await ethers.getContractFactory("Battle");
   const battleContract = await battleContractFactory.deploy(
     squadVerifierContract.getAddress(),
-    battleVerifierContract.getAddress()
+    battleVerifierContract.getAddress(),
+    ethers.ZeroAddress,
+    ethers.ZeroAddress,
+    ethers.ZeroAddress
   );
   return {
     deployer,
@@ -103,7 +106,7 @@ describe("Battle", function () {
     await expect(
       battleContract
         .connect(userOne)
-        .end(battleId, battleResult, battleResultProof)
+        .end(battleId, userOneSquad, battleResult, battleResultProof)
     ).to.be.not.reverted;
     const battleParams = await battleContract.getParams(battleId);
     expect(battleParams.result).to.be.equal(battleResult);

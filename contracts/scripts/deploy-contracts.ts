@@ -31,12 +31,18 @@ async function main() {
   if (
     !CONTRACTS[network].battle &&
     CONTRACTS[network].squadVerifier &&
-    CONTRACTS[network].battleVerifier
+    CONTRACTS[network].battleVerifier &&
+    CONTRACTS[network].btcUsdDataFeed &&
+    CONTRACTS[network].ethUsdDataFeed &&
+    CONTRACTS[network].linkUsdDataFeed
   ) {
     const contractFactory = await ethers.getContractFactory("Battle");
     const contract = await contractFactory.deploy(
       CONTRACTS[network].squadVerifier as `0x${string}`,
-      CONTRACTS[network].battleVerifier as `0x${string}`
+      CONTRACTS[network].battleVerifier as `0x${string}`,
+      CONTRACTS[network].btcUsdDataFeed as `0x${string}`,
+      CONTRACTS[network].ethUsdDataFeed as `0x${string}`,
+      CONTRACTS[network].linkUsdDataFeed as `0x${string}`
     );
     await contract.waitForDeployment();
     console.log(
