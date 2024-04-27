@@ -7,6 +7,10 @@ import "./IVerifier.sol";
 contract Battle is ERC721 {
     uint public constant MAX_SQUAD_SIZE = 10;
 
+    event Started(uint tokenId, Params params);
+    event Joined(uint tokenId, Params params);
+    event Ended(uint tokenId, Params params);
+
     // TODO: Add prices used for boosters
     struct Params {
         bytes32 userOneSquadHash;
@@ -48,6 +52,8 @@ contract Battle is ERC721 {
         prms.userOneSquadHash = _squadHash;
         prms.started = block.timestamp;
         params[tokenId] = prms;
+        // Emit event
+        emit Started(tokenId, params[tokenId]);
     }
 
     function join(uint _tokenId, uint[] memory _squad) public {
@@ -70,6 +76,8 @@ contract Battle is ERC721 {
         params[_tokenId].userTwo = msg.sender;
         params[_tokenId].userTwoSquad = _squad;
         params[_tokenId].joined = block.timestamp;
+        // Emit event
+        emit Joined(_tokenId, params[_tokenId]);
     }
 
     function end(
@@ -94,6 +102,8 @@ contract Battle is ERC721 {
         // Update params
         params[_tokenId].result = _battleResult;
         params[_tokenId].ended = block.timestamp;
+        // Emit event
+        emit Ended(_tokenId, params[_tokenId]);
     }
 
     function getParams(uint _tokenId) public view returns (Params memory) {
