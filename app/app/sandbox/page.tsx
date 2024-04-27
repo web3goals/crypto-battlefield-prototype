@@ -1,18 +1,17 @@
 "use client";
 
+import testCircuit from "@/circuit/test.json";
 import { BarretenbergBackend } from "@noir-lang/backend_barretenberg";
 import { Noir } from "@noir-lang/noir_js";
-
-import circuit from "@/circuit/circuit.json";
 
 export default function SandboxPage() {
   async function test() {
     try {
       console.log("test");
       // @ts-ignore
-      const backend = new BarretenbergBackend(circuit);
+      const backend = new BarretenbergBackend(testCircuit);
       // @ts-ignore
-      const noir = new Noir(circuit, backend);
+      const noir = new Noir(testCircuit, backend);
       const x = 2;
       const input = { x, y: 2 };
       const proof = await noir.generateProof(input);
