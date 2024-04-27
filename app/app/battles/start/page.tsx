@@ -7,6 +7,7 @@ import { siteConfig } from "@/config/site";
 import { battleAbi } from "@/contracts/abi/battle";
 import useError from "@/hooks/useError";
 import { getSquadHash, getSquadProof } from "@/lib/noir";
+import { LocalSquad } from "@/types/local-squad";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { parseEventLogs, toHex } from "viem";
@@ -59,6 +60,15 @@ export default function StartBattlePage() {
         logs: txReceipt.logs,
       });
       const battleId = createTxLogs[0].args.tokenId;
+      // Save squad and squad hash to local storage
+      const localSquad: LocalSquad = {
+        squad: squad,
+        hash: squadHash as `0x${string}`,
+      };
+      localStorage.setItem(
+        `squad_${contracts.chain.id}_${battleId}`,
+        JSON.stringify(localSquad)
+      );
       // Show success message
       toast({
         title: "Battle started ⚔️",
@@ -71,7 +81,7 @@ export default function StartBattlePage() {
   }
 
   return (
-    <div className="container py-10 lg:px-96">
+    <div className="container py-10 lg:px-80 xl:px-96">
       <div className="space-y-0.5">
         <h2 className="text-2xl font-bold tracking-tight">Squad</h2>
         <p className="text-muted-foreground">
