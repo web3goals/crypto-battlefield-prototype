@@ -26,7 +26,7 @@ export function BattleFormSquadForm(props: {
         title="BTC Tank"
         health="6 points"
         attack="1 point"
-        booster="Health x2 if the price is even number"
+        booster="Health x2 if BTC price is even number"
         amount={unitsOne}
         onAmountUpdate={(amount) => setUnitsOne(amount)}
         disabled={props.disabled}
@@ -36,7 +36,7 @@ export function BattleFormSquadForm(props: {
         title="ETH Fighter"
         health="4 points"
         attack="2 point"
-        booster="Health x2 if the price is odd number"
+        booster="Attack x2 if ETH price is odd number"
         amount={unitsTwo}
         onAmountUpdate={(amount) => setUnitsTwo(amount)}
         disabled={props.disabled}
@@ -46,7 +46,7 @@ export function BattleFormSquadForm(props: {
         title="LINK Soldier"
         health="2 points"
         attack="3 point"
-        booster="Health x3 if the price ends at 5"
+        booster="Health x3 if LINK price ends at 5"
         amount={unitsThree}
         onAmountUpdate={(amount) => setUnitsThree(amount)}
         disabled={props.disabled}
@@ -56,7 +56,7 @@ export function BattleFormSquadForm(props: {
         title="DOGE Dog"
         health="1 points"
         attack="4 point"
-        booster="Attack x3 if the price ends at 5"
+        booster="Attack x3 if DOGE price ends at 5"
         amount={0}
         onAmountUpdate={() => {}}
         disabled={props.disabled}
