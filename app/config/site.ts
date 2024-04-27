@@ -22,7 +22,7 @@ export const siteConfig = {
   contracts: {
     scrollSepolia: {
       chain: scrollSepolia,
-      battle: "0x9cAAb0Bf70BD0e71307BfaBeb1E8eC092c81e493" as `0x${string}`,
+      battle: "0x9B21B88e69c95B5463d5838DC9481ED70497F869" as `0x${string}`,
       entryPoint: "0x0000000000000000000000000000000000000000" as `0x${string}`,
       paymaster: "0x0000000000000000000000000000000000000000" as `0x${string}`,
       accountFactory:

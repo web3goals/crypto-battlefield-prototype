@@ -11,6 +11,21 @@ export const battleAbi = [
         name: "_battleVerifier",
         type: "address",
       },
+      {
+        internalType: "address",
+        name: "_btcUsdDataFeed",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "_ethUsdDataFeed",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "_linkUsdDataFeed",
+        type: "address",
+      },
     ],
     stateMutability: "nonpayable",
     type: "constructor",
@@ -172,6 +187,234 @@ export const battleAbi = [
     anonymous: false,
     inputs: [
       {
+        indexed: false,
+        internalType: "uint256",
+        name: "tokenId",
+        type: "uint256",
+      },
+      {
+        components: [
+          {
+            internalType: "uint256[]",
+            name: "userOneSquad",
+            type: "uint256[]",
+          },
+          {
+            internalType: "bytes32",
+            name: "userOneSquadHash",
+            type: "bytes32",
+          },
+          {
+            internalType: "address",
+            name: "userTwo",
+            type: "address",
+          },
+          {
+            internalType: "uint256[]",
+            name: "userTwoSquad",
+            type: "uint256[]",
+          },
+          {
+            internalType: "uint256",
+            name: "result",
+            type: "uint256",
+          },
+          {
+            internalType: "int256",
+            name: "btcUsd",
+            type: "int256",
+          },
+          {
+            internalType: "int256",
+            name: "ethUsd",
+            type: "int256",
+          },
+          {
+            internalType: "int256",
+            name: "linkUsd",
+            type: "int256",
+          },
+          {
+            internalType: "uint256",
+            name: "started",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "joined",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "ended",
+            type: "uint256",
+          },
+        ],
+        indexed: false,
+        internalType: "struct Battle.Params",
+        name: "params",
+        type: "tuple",
+      },
+    ],
+    name: "Ended",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "tokenId",
+        type: "uint256",
+      },
+      {
+        components: [
+          {
+            internalType: "uint256[]",
+            name: "userOneSquad",
+            type: "uint256[]",
+          },
+          {
+            internalType: "bytes32",
+            name: "userOneSquadHash",
+            type: "bytes32",
+          },
+          {
+            internalType: "address",
+            name: "userTwo",
+            type: "address",
+          },
+          {
+            internalType: "uint256[]",
+            name: "userTwoSquad",
+            type: "uint256[]",
+          },
+          {
+            internalType: "uint256",
+            name: "result",
+            type: "uint256",
+          },
+          {
+            internalType: "int256",
+            name: "btcUsd",
+            type: "int256",
+          },
+          {
+            internalType: "int256",
+            name: "ethUsd",
+            type: "int256",
+          },
+          {
+            internalType: "int256",
+            name: "linkUsd",
+            type: "int256",
+          },
+          {
+            internalType: "uint256",
+            name: "started",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "joined",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "ended",
+            type: "uint256",
+          },
+        ],
+        indexed: false,
+        internalType: "struct Battle.Params",
+        name: "params",
+        type: "tuple",
+      },
+    ],
+    name: "Joined",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "tokenId",
+        type: "uint256",
+      },
+      {
+        components: [
+          {
+            internalType: "uint256[]",
+            name: "userOneSquad",
+            type: "uint256[]",
+          },
+          {
+            internalType: "bytes32",
+            name: "userOneSquadHash",
+            type: "bytes32",
+          },
+          {
+            internalType: "address",
+            name: "userTwo",
+            type: "address",
+          },
+          {
+            internalType: "uint256[]",
+            name: "userTwoSquad",
+            type: "uint256[]",
+          },
+          {
+            internalType: "uint256",
+            name: "result",
+            type: "uint256",
+          },
+          {
+            internalType: "int256",
+            name: "btcUsd",
+            type: "int256",
+          },
+          {
+            internalType: "int256",
+            name: "ethUsd",
+            type: "int256",
+          },
+          {
+            internalType: "int256",
+            name: "linkUsd",
+            type: "int256",
+          },
+          {
+            internalType: "uint256",
+            name: "started",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "joined",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "ended",
+            type: "uint256",
+          },
+        ],
+        indexed: false,
+        internalType: "struct Battle.Params",
+        name: "params",
+        type: "tuple",
+      },
+    ],
+    name: "Started",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
         indexed: true,
         internalType: "address",
         name: "from",
@@ -257,11 +500,29 @@ export const battleAbi = [
     type: "function",
   },
   {
+    inputs: [],
+    name: "btcUsdDataFeed",
+    outputs: [
+      {
+        internalType: "contract AggregatorV3Interface",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [
       {
         internalType: "uint256",
         name: "_tokenId",
         type: "uint256",
+      },
+      {
+        internalType: "uint256[]",
+        name: "userOneSquad",
+        type: "uint256[]",
       },
       {
         internalType: "uint256",
@@ -277,6 +538,19 @@ export const battleAbi = [
     name: "end",
     outputs: [],
     stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "ethUsdDataFeed",
+    outputs: [
+      {
+        internalType: "contract AggregatorV3Interface",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
     type: "function",
   },
   {
@@ -299,6 +573,45 @@ export const battleAbi = [
     type: "function",
   },
   {
+    inputs: [],
+    name: "getBtcUsdDataFeedLatestAnswer",
+    outputs: [
+      {
+        internalType: "int256",
+        name: "",
+        type: "int256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getEthUsdDataFeedLatestAnswer",
+    outputs: [
+      {
+        internalType: "int256",
+        name: "",
+        type: "int256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getLinkUsdDataFeedLatestAnswer",
+    outputs: [
+      {
+        internalType: "int256",
+        name: "",
+        type: "int256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [
       {
         internalType: "uint256",
@@ -310,6 +623,11 @@ export const battleAbi = [
     outputs: [
       {
         components: [
+          {
+            internalType: "uint256[]",
+            name: "userOneSquad",
+            type: "uint256[]",
+          },
           {
             internalType: "bytes32",
             name: "userOneSquadHash",
@@ -328,6 +646,36 @@ export const battleAbi = [
           {
             internalType: "uint256",
             name: "result",
+            type: "uint256",
+          },
+          {
+            internalType: "int256",
+            name: "btcUsd",
+            type: "int256",
+          },
+          {
+            internalType: "int256",
+            name: "ethUsd",
+            type: "int256",
+          },
+          {
+            internalType: "int256",
+            name: "linkUsd",
+            type: "int256",
+          },
+          {
+            internalType: "uint256",
+            name: "started",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "joined",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "ended",
             type: "uint256",
           },
         ],
@@ -379,6 +727,19 @@ export const battleAbi = [
     name: "join",
     outputs: [],
     stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "linkUsdDataFeed",
+    outputs: [
+      {
+        internalType: "contract AggregatorV3Interface",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
     type: "function",
   },
   {
@@ -449,6 +810,36 @@ export const battleAbi = [
       {
         internalType: "uint256",
         name: "result",
+        type: "uint256",
+      },
+      {
+        internalType: "int256",
+        name: "btcUsd",
+        type: "int256",
+      },
+      {
+        internalType: "int256",
+        name: "ethUsd",
+        type: "int256",
+      },
+      {
+        internalType: "int256",
+        name: "linkUsd",
+        type: "int256",
+      },
+      {
+        internalType: "uint256",
+        name: "started",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "joined",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "ended",
         type: "uint256",
       },
     ],

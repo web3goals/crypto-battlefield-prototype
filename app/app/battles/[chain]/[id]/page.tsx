@@ -71,7 +71,12 @@ export default function BattlePage({
           <SquadsSection
             battle={params.id}
             userOne={battleOwner as `0x${string}`}
-            userOneSquad={localSquad?.squad || []}
+            userOneSquad={
+              localSquad?.squad ||
+              (battleParams?.userOneSquad as bigint[]).map((unit) =>
+                Number(unit)
+              )
+            }
             userOneSquadHash={localSquad?.hash || "0x0"}
             userTwo={battleParams?.userTwo as `0x${string}`}
             userTwoSquad={(battleParams?.userTwoSquad as bigint[]).map((unit) =>
@@ -86,6 +91,12 @@ export default function BattlePage({
             userOne={battleOwner as `0x${string}`}
             userTwo={battleParams?.userTwo as `0x${string}`}
             result={Number(battleParams?.result as bigint)}
+            btcUsdPrice={Number(battleParams?.btcUsd as bigint)}
+            ethUsdPrice={Number(battleParams?.ethUsd as bigint)}
+            linkUsdPrice={Number(battleParams?.linkUsd as bigint)}
+            started={Number(battleParams?.started as bigint)}
+            joined={Number(battleParams?.joined as bigint)}
+            ended={Number(battleParams?.ended as bigint)}
             contracts={contracts}
           />
         </>
@@ -201,6 +212,7 @@ function SquadsMiddleDetails(props: {
           functionName: "end",
           args: [
             BigInt(props.battle),
+            props.userOneSquad.map((unit) => BigInt(unit)),
             BigInt(battleResult),
             toHex(battleResultProof),
           ],
@@ -311,22 +323,26 @@ function JoinCard(props: { battle: string; contracts: SiteConfigContracts }) {
   );
 }
 
-// TODO: Use real dates
 function JournalSection(props: {
   userOne: `0x${string}`;
   userTwo: `0x${string}`;
+  btcUsdPrice: number;
+  ethUsdPrice: number;
+  linkUsdPrice: number;
+  started: number;
+  joined: number;
+  ended: number;
   result: number;
   contracts: SiteConfigContracts;
 }) {
   return (
     <div className="flex flex-col gap-4">
       {/* TODO: Implement journal record for a draw case */}
-      {/* TODO: Show conditions with prices */}
       {(props.result == 1 || props.result == 2) && (
         <JournalRecord
           icon="☠️"
           content={
-            <p>
+            <p className="font-light">
               <span className="font-extrabold">
                 {addressToShortAddress(props.userOne)}
               </span>{" "}
@@ -336,36 +352,51 @@ function JournalSection(props: {
                   props.result === 1 ? props.userOne : props.userTwo
                 )}
               </span>{" "}
+              under the conditions that the price of BTC was{" "}
+              <span className="font-extrabold">
+                {props.btcUsdPrice.toString().slice(0, -2)},
+                {props.btcUsdPrice.toString().slice(-2)} USD
+              </span>
+              , the price of ETH was{" "}
+              <span className="font-extrabold">
+                {props.ethUsdPrice.toString().slice(0, -2)},
+                {props.ethUsdPrice.toString().slice(-2)} USD
+              </span>
+              , the price of LINK was{" "}
+              <span className="font-extrabold">
+                {props.linkUsdPrice.toString().slice(0, -2)},
+                {props.linkUsdPrice.toString().slice(-2)} USD
+              </span>
             </p>
           }
-          date={new Date().getTime()}
+          date={new Date(props.ended * 1000).getTime()}
         />
       )}
       {!isAddressEqual(props.userTwo, zeroAddress) && (
         <JournalRecord
           icon="⚔️"
           content={
-            <p>
+            <p className="font-light">
               <span className="font-extrabold">
                 {addressToShortAddress(props.userTwo)}
               </span>{" "}
               joined the battle
             </p>
           }
-          date={new Date().getTime()}
+          date={new Date(props.joined * 1000).getTime()}
         />
       )}
       <JournalRecord
         icon="🗡️"
         content={
-          <p>
+          <p className="font-light">
             <span className="font-extrabold">
               {addressToShortAddress(props.userOne)}
             </span>{" "}
             started the battle with a hidden squad, providing a ZK Proof
           </p>
         }
-        date={new Date().getTime()}
+        date={new Date(props.started * 1000).getTime()}
       />
     </div>
   );
@@ -382,7 +413,9 @@ function JournalRecord(props: {
       <div>
         <Avatar className="size-12">
           <AvatarImage src="" alt="Record" />
-          <AvatarFallback className="text-xl bg-primary">⚔️</AvatarFallback>
+          <AvatarFallback className="text-xl bg-primary">
+            {props.icon}
+          </AvatarFallback>
         </Avatar>
       </div>
       {/* Content */}
