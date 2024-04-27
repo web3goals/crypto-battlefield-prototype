@@ -7,6 +7,8 @@ import "./IVerifier.sol";
 contract Battle is ERC721 {
     uint public constant MAX_SQUAD_SIZE = 10;
 
+    // TODO: Add started, joined, ended
+    // TODO: Add prices used for boosters
     struct Params {
         bytes32 userOneSquadHash;
         address userTwo;
@@ -45,15 +47,15 @@ contract Battle is ERC721 {
         params[tokenId] = prms;
     }
 
+    // TODO: Check that caller is not user one
     function join(uint _tokenId, uint[] memory _squad) public {
-        // Check the squad
+        // Check data
+        _requireOwned(_tokenId);
         require(_squad.length == 3, "Squad length incorrect");
         require(
             _squad[0] + _squad[1] + _squad[2] == MAX_SQUAD_SIZE,
             "Squad size incorrect"
         );
-        // Check params
-        _requireOwned(_tokenId);
         require(
             params[_tokenId].userTwo == address(0),
             "The battle already has the second user"
@@ -68,6 +70,9 @@ contract Battle is ERC721 {
         uint _battleResult,
         bytes calldata _battleResultProof
     ) public {
+        // Check data
+        _requireOwned(_tokenId);
+        require(params[_tokenId].result == 0, "The battle already ended");
         // Set up public input to verify battle result
         bytes32[] memory publicInputs = new bytes32[](5);
         publicInputs[0] = params[_tokenId].userOneSquadHash;
