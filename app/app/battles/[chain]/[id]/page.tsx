@@ -337,7 +337,35 @@ function JournalSection(props: {
 }) {
   return (
     <div className="flex flex-col gap-4">
-      {/* TODO: Implement journal record for a draw case */}
+      {props.result == 3 && (
+        <JournalRecord
+          icon="☠️"
+          content={
+            <p className="font-light">
+              <span className="font-extrabold">
+                {addressToShortAddress(props.userOne)}
+              </span>{" "}
+              ended the battle with a draw under the conditions that the price
+              of BTC was{" "}
+              <span className="font-extrabold">
+                {props.btcUsdPrice.toString().slice(0, -2)},
+                {props.btcUsdPrice.toString().slice(-2)} USD
+              </span>
+              , the price of ETH was{" "}
+              <span className="font-extrabold">
+                {props.ethUsdPrice.toString().slice(0, -2)},
+                {props.ethUsdPrice.toString().slice(-2)} USD
+              </span>
+              , the price of LINK was{" "}
+              <span className="font-extrabold">
+                {props.linkUsdPrice.toString().slice(0, -2)},
+                {props.linkUsdPrice.toString().slice(-2)} USD
+              </span>
+            </p>
+          }
+          date={new Date(props.ended * 1000).getTime()}
+        />
+      )}
       {(props.result == 1 || props.result == 2) && (
         <JournalRecord
           icon="☠️"
