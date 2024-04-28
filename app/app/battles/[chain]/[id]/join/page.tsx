@@ -54,7 +54,7 @@ export default function JoinBattlePage({
       toast({
         title: "Joined the battle ⚔️",
       });
-      router.push(`/battles/${params.id}/${params.id}`);
+      router.push(`/battles/${params.chain}/${params.id}`);
     } catch (error: any) {
       handleError(error, true);
       setIsFormSubmitting(false);
