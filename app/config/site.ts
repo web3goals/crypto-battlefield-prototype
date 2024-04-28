@@ -9,6 +9,7 @@ export type SiteConfigContracts = {
   paymaster: `0x${string}`;
   accountFactory: `0x${string}`;
   accountAbstractionSuported: boolean;
+  subgraph: string;
 };
 
 export const siteConfig = {
@@ -28,6 +29,8 @@ export const siteConfig = {
       accountFactory:
         "0x0000000000000000000000000000000000000000" as `0x${string}`,
       accountAbstractionSuported: false,
+      subgraph:
+        "https://api.studio.thegraph.com/query/23766/crypto-battlefield/version/latest",
     } as SiteConfigContracts,
   },
 };

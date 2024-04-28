@@ -1,3 +1,4 @@
+import { SiteConfigContracts } from "@/config/site";
 import {
   DEFAULT_SITE_CONFIG_CONTRACTS,
   chainToSiteConfigContracts,
@@ -7,7 +8,7 @@ import { Chain } from "viem";
 
 export default function useSiteConfigContracts(
   chain: Chain | number | undefined
-) {
+): { contracts: SiteConfigContracts } {
   const [contracts, setContracts] = useState(DEFAULT_SITE_CONFIG_CONTRACTS);
 
   useEffect(() => {
