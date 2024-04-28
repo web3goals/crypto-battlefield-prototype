@@ -1,0 +1,8 @@
+{
+  "scroll-sepolia": {
+    "Battle": {
+      "address": "0x9B21B88e69c95B5463d5838DC9481ED70497F869",
+      "startBlock": 4095824
+    }
+  }
+}

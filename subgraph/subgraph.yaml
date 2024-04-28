@@ -1,0 +1,41 @@
+specVersion: 1.0.0
+indexerHints:
+  prune: auto
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Battle
+    network: scroll-sepolia
+    source:
+      address: "0x9B21B88e69c95B5463d5838DC9481ED70497F869"
+      abi: Battle
+      startBlock: 4095824
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - ApprovalForAll
+        - Ended
+        - Joined
+        - Started
+        - Transfer
+      abis:
+        - name: Battle
+          file: ./abis/Battle.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,indexed uint256)
+          handler: handleApproval
+        - event: ApprovalForAll(indexed address,indexed address,bool)
+          handler: handleApprovalForAll
+        - event: Ended(uint256,(uint256[],bytes32,address,uint256[],uint256,int256,int256,int256,uint256,uint256,uint256))
+          handler: handleEnded
+        - event: Joined(uint256,(uint256[],bytes32,address,uint256[],uint256,int256,int256,int256,uint256,uint256,uint256))
+          handler: handleJoined
+        - event: Started(uint256,(uint256[],bytes32,address,uint256[],uint256,int256,int256,int256,uint256,uint256,uint256))
+          handler: handleStarted
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+      file: ./src/battle.ts

@@ -1,0 +1,86 @@
+type Approval @entity(immutable: true) {
+  id: Bytes!
+  owner: Bytes! # address
+  approved: Bytes! # address
+  tokenId: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type ApprovalForAll @entity(immutable: true) {
+  id: Bytes!
+  owner: Bytes! # address
+  operator: Bytes! # address
+  approved: Boolean! # bool
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Ended @entity(immutable: true) {
+  id: Bytes!
+  tokenId: BigInt! # uint256
+  params_userOneSquad: [BigInt!]! # uint256[]
+  params_userOneSquadHash: Bytes! # bytes32
+  params_userTwo: Bytes! # address
+  params_userTwoSquad: [BigInt!]! # uint256[]
+  params_result: BigInt! # uint256
+  params_btcUsd: BigInt! # int256
+  params_ethUsd: BigInt! # int256
+  params_linkUsd: BigInt! # int256
+  params_started: BigInt! # uint256
+  params_joined: BigInt! # uint256
+  params_ended: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Joined @entity(immutable: true) {
+  id: Bytes!
+  tokenId: BigInt! # uint256
+  params_userOneSquad: [BigInt!]! # uint256[]
+  params_userOneSquadHash: Bytes! # bytes32
+  params_userTwo: Bytes! # address
+  params_userTwoSquad: [BigInt!]! # uint256[]
+  params_result: BigInt! # uint256
+  params_btcUsd: BigInt! # int256
+  params_ethUsd: BigInt! # int256
+  params_linkUsd: BigInt! # int256
+  params_started: BigInt! # uint256
+  params_joined: BigInt! # uint256
+  params_ended: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Started @entity(immutable: true) {
+  id: Bytes!
+  tokenId: BigInt! # uint256
+  params_userOneSquad: [BigInt!]! # uint256[]
+  params_userOneSquadHash: Bytes! # bytes32
+  params_userTwo: Bytes! # address
+  params_userTwoSquad: [BigInt!]! # uint256[]
+  params_result: BigInt! # uint256
+  params_btcUsd: BigInt! # int256
+  params_ethUsd: BigInt! # int256
+  params_linkUsd: BigInt! # int256
+  params_started: BigInt! # uint256
+  params_joined: BigInt! # uint256
+  params_ended: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Transfer @entity(immutable: true) {
+  id: Bytes!
+  from: Bytes! # address
+  to: Bytes! # address
+  tokenId: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
