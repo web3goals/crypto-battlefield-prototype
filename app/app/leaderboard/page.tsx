@@ -74,7 +74,7 @@ function LeaderboardUserCard(props: {
           </p>
           <p className="text-sm">{props.user.victories} </p>
           <p className="text-sm text-muted-foreground">
-            ({(props.user.victories / props.user.battles) * 100}
+            ({((props.user.victories / props.user.battles) * 100).toFixed(2)}
             %)
           </p>
         </div>
@@ -82,7 +82,7 @@ function LeaderboardUserCard(props: {
           <p className="min-w-[80px] text-sm text-muted-foreground">Defeats:</p>
           <p className="text-sm">{props.user.defeats}</p>
           <p className="text-sm text-muted-foreground">
-            ({(props.user.defeats / props.user.battles) * 100}
+            ({((props.user.defeats / props.user.battles) * 100).toFixed(2)}
             %)
           </p>
         </div>
@@ -90,7 +90,7 @@ function LeaderboardUserCard(props: {
           <p className="min-w-[80px] text-sm text-muted-foreground">Draws:</p>
           <p className="text-sm">{props.user.draws}</p>
           <p className="text-sm text-muted-foreground">
-            ({(props.user.draws / props.user.battles) * 100}
+            ({((props.user.draws / props.user.battles) * 100).toFixed(2)}
             %)
           </p>
         </div>
