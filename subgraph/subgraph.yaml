@@ -16,26 +16,20 @@ dataSources:
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
-        - Approval
-        - ApprovalForAll
-        - Ended
-        - Joined
         - Started
+        - Joined
+        - Ended
         - Transfer
       abis:
         - name: Battle
           file: ./abis/Battle.json
       eventHandlers:
-        - event: Approval(indexed address,indexed address,indexed uint256)
-          handler: handleApproval
-        - event: ApprovalForAll(indexed address,indexed address,bool)
-          handler: handleApprovalForAll
-        - event: Ended(uint256,(uint256[],bytes32,address,uint256[],uint256,int256,int256,int256,uint256,uint256,uint256))
-          handler: handleEnded
-        - event: Joined(uint256,(uint256[],bytes32,address,uint256[],uint256,int256,int256,int256,uint256,uint256,uint256))
-          handler: handleJoined
         - event: Started(uint256,(uint256[],bytes32,address,uint256[],uint256,int256,int256,int256,uint256,uint256,uint256))
           handler: handleStarted
+        - event: Joined(uint256,(uint256[],bytes32,address,uint256[],uint256,int256,int256,int256,uint256,uint256,uint256))
+          handler: handleJoined
+        - event: Ended(uint256,(uint256[],bytes32,address,uint256[],uint256,int256,int256,int256,uint256,uint256,uint256))
+          handler: handleEnded
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
       file: ./src/battle.ts
